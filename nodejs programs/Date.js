@@ -1,0 +1,26 @@
+let dt0=new Date() //Wed Aug 17 2022 10:03:22 GMT+0530 (India Standard Time)
+// Date(year, month, day, hours, minutes, seconds, milliseconds)
+const dt1=new Date(2020,11,23,13,45,56,45) // Wed Dec 23 2020 13:45:56 GMT+0530 (India Standard Time)
+const dt2=new Date(20,11,23,13,45,56,45) // Thu Dec 23 1920 13:45:56 GMT+0530 (India Standard Time)
+// Date(milliseconds)
+const dt3=new Date(1000) // Thu Jan 01 1970 05:30:01 GMT+0530 (India Standard Time)
+// Date(date string)
+let dt4=dt0.toDateString() // Wed Aug 17 2022
+let dt5=dt0.toUTCString() // Wed, 17 Aug 2022 04:34:47 GMT
+let dt6=dt0.toISOString() // 2022-08-17T04:32:55.148Z
+let dt7=Date.parse(25-03-2015)
+let dt8=dt0.getFullYear()
+let dt9=dt0.getMonth()
+let dt10=dt0.getDate()
+let dt11=dt0.getHours()
+let dt12=dt0.getMinutes()
+let dt13=dt0.getSeconds()
+let dt14=dt0.getMilliseconds()
+let dt15=dt0.getDay()
+let dt16=Date.now()
+let dt17=dt0
+dt17.setDate(15)
+dt17.setMonth(1)
+let dt18=new Date().toLocaleString("en-IN")
+let dt19=new Date().toLocaleString("en-US")
+console.log(dt18)
