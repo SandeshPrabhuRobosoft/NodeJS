@@ -23,7 +23,7 @@ let link=new URL("/fake","https://www.geeksforgeeks.org/node-js-global-objects/"
 console.log(link)
 /* URL {
     href: 'https://www.geeksforgeeks.org/fake',
-    origin: 'https://www.geeksforgeeks.org',
+    origin: 'https://www.geeksforgeeks.org',  
     protocol: 'https:',
     username: '',
     password: '',
