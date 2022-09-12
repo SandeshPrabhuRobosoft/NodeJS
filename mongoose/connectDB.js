@@ -63,7 +63,12 @@ async function insertManyFunction(){
 // ninOperator()
 // inOperator()
 // unsetOperation()
-setOperation()
+// setOperation()
+
+// async function aggregateToGroupByCity(){
+//     await userCollection
+// }
+
 
 async function unsetOperation(){
     await userCollection.updateOne({name:"Sandesh"},{$unset:{age:''}})
@@ -127,12 +132,3 @@ async function updateOneFunction(){
     })
 }
 
-// let updateManyFunction=async()=>{
-//     await userCollection.updateMany({},{ $set: { name: 'foo' } });
-//     console.log("um`")
-
-// }
-
-
-// updateManyFunction()
-// findFunction()
