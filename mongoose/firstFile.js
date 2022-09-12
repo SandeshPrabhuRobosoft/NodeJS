@@ -13,6 +13,7 @@ async function main(){
     let Kitten=mongoose.model('Kitten',kittenSchema)
     
     let Vineeth=new Kitten({name:"Vineeth"})
+
     console.log(Vineeth.name)
     Vineeth.speak()
     
@@ -22,3 +23,5 @@ async function main(){
     let allKittens=await Kitten.find()
     console.log(allKittens)
 }
+//lean, odm, orm, indexing, data types, populate
+

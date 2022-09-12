@@ -8,5 +8,19 @@
   },
   "devDependencies": {
     "jest": "^29.0.1"
-  }
+  },
+  "name": "nodejs",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SandeshPrabhuRobosoft/NodeJS.git"
+  },
+  "author": "Sandesh Prabhu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SandeshPrabhuRobosoft/NodeJS/issues"
+  },
+  "homepage": "https://github.com/SandeshPrabhuRobosoft/NodeJS#readme"
 }
