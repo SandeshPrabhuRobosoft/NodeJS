@@ -12,20 +12,19 @@ const userSchema = new mongoose.Schema({
     dateOfBirth:{type:Date},
     email: String,
     phoneNo: Number,
-    address: [{city:{type:String},state:{type:String}}],
-    vehicle:{type:mongoose.Types.ObjectId, ref:'userVehicleCollection'}
-  });
+    address: [{type:String}],
+});
+
+const userCollection= mongoose.model('userCollection', userSchema);
+
 const userVehicleSchema = new mongoose.Schema({
     Owner:{type:mongoose.Schema.Types.ObjectId, ref:'userCollection'},
     Brand:String,
     Model:String,
     Year:Number
 })
-const userCollection= mongoose.model('userCollection', userSchema);
 const userVehicleCollection= mongoose.model('userVehicleCollection', userVehicleSchema);
 
-
-// insertManyFunction()
 let Sandesh=new userCollection({
     name: "Sandesh",
     gender:"Male",
@@ -34,17 +33,17 @@ let Sandesh=new userCollection({
     dateOfBirth: new Date('2000-05-01'),
     email: "Sandesh@gmail.com",
     phoneNo: 1234567890,
-    address: {city:'Manipal',state:"Karnataka"}
+    address: ["Manipal, Karnataka"]
 })
 let VPN=new userCollection({
     name: "VPN",
-    gender:"Male",
+    gender:"Female",
     age:12,
     experienceYears:1,
     dateOfBirth: new Date('2001-02-28'),
     email: "VPN@gmail.com",
     phoneNo: 7894561230,
-    address: {city:'Udupi',state:"Karnataka"}
+    address: ["Udupi, Karnataka"]
 })
 let Sumukh=new userCollection({
     name: "Sumukh",
@@ -54,8 +53,10 @@ let Sumukh=new userCollection({
     dateOfBirth: new Date('2021-03-21'),
     email: "Sumukh@gmail.com",
     phoneNo: 7642135892,
-    address: {city:'Mysore',state:"Karnataka"}
+    address: ["Mysore, Karnataka"]
 })
+// saveUserFunction()
+function saveUserFunction(){
 Sandesh.save(function (err) {
     if (err) return handleError(err)
 })
@@ -65,26 +66,28 @@ VPN.save(function (err) {
 Sumukh.save(function (err) {
     if (err) return handleError(err);
 })
+}
 
 let SandeshVehicle = new userVehicleCollection({
-    owner: Sandesh._id,
+    Owner: Sandesh._id,
     Brand:"Tesla",
     Model:"CyberTruck",
     Year:2022
 });
 let VPNVehicle = new userVehicleCollection({
-    owner: VPN._id,
+    Owner: VPN._id,
     Brand:"BMW",
     Model:"C Class",
     Year:2012
 });
 let SumukhVehicle = new userVehicleCollection({
-    owner: Sumukh._id,
+    Owner: Sumukh._id,
     Brand:"Mercedes",
     Model:"A Class",
     Year:2020
 });
-
+// saveUserVehicleFunction()
+function saveUserVehicleFunction(){
 SandeshVehicle.save(function (err) {
     if (err) return handleError(err);
 });
@@ -94,3 +97,22 @@ VPNVehicle.save(function (err) {
 SumukhVehicle.save(function (err) {
     if (err) return handleError(err);
 });
+}
+
+// userVehicleCollection.findOne({name:"Tesla"}).populate('Owner').exec(function (err, collection) {
+//     if (err) return handleError(err);
+//     console.log(`The Owner's mailID is ${collection.Owner.email}`);
+// })
+
+// deleteManyFunction()
+async function deleteManyFunction(){
+    await userCollection.deleteMany({}).then(values=>console.log(values)).catch(err=>console.log(err))
+    await userVehicleCollection.deleteMany({}).then(values=>console.log(values)).catch(err=>console.log(err))
+}
+
+addAddress('Sandesh','secondAddress')
+async function addAddress(obj,newAddress){
+    let data=await userCollection.find({name:obj})
+    newData=(data.address).push(newAddress)
+    await userCollection.updateOne({name:obj},{addressData})
+}
