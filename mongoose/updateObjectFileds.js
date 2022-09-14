@@ -1,5 +1,5 @@
 const mongoose=require("mongoose")
-mongoose.connect('mongodb://localhost/populateTraining')
+mongoose.connect('mongodb://localhost/updateTraining')
 mongoose.connection.once("open",()=>console.log("Connected to DB.")).on("error",(err)=>{console.log("Error:"+err)})
 
 // Types: String, Number, Date, Buffer, Boolean, Mixed, ObjectId, Array, Decimal128, Map
@@ -55,7 +55,7 @@ let Sumukh=new userCollection({
     phoneNo: 7642135892,
     address: ["Mysore, Karnataka"]
 })
-// saveUserFunction()
+saveUserFunction()
 function saveUserFunction(){
 Sandesh.save(function (err) {
     if (err) return handleError(err)
@@ -86,7 +86,7 @@ let SumukhVehicle = new userVehicleCollection({
     Model:"A Class",
     Year:2020
 });
-// saveUserVehicleFunction()
+saveUserVehicleFunction()
 function saveUserVehicleFunction(){
 SandeshVehicle.save(function (err) {
     if (err) return handleError(err);
@@ -97,15 +97,4 @@ VPNVehicle.save(function (err) {
 SumukhVehicle.save(function (err) {
     if (err) return handleError(err);
 });
-}
-
-userVehicleCollection.findOne({name:"Tesla"}).populate('Owner').exec(function (err, collection) {
-    if (err) return handleError(err);
-    console.log(`The Owner's mailID is ${collection.Owner.email}`);
-})
-
-// deleteManyFunction()
-async function deleteManyFunction(){
-    await userCollection.deleteMany({}).then(values=>console.log(values)).catch(err=>console.log(err))
-    await userVehicleCollection.deleteMany({}).then(values=>console.log(values)).catch(err=>console.log(err))
 }

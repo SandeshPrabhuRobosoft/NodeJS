@@ -99,13 +99,40 @@ SumukhVehicle.save(function (err) {
 });
 }
 
-userVehicleCollection.findOne({name:"Tesla"}).populate('Owner').exec(function (err, collection) {
-    if (err) return handleError(err);
-    console.log(`The Owner's mailID is ${collection.Owner.email}`);
-})
+// addAddress('Sandesh','secondAddress',1/*optional*/)
+async function addAddress(obj,newAddress,index){
+    let data=await userCollection.find({name:obj})
+    let [dataSet]=data
+    if(dataSet.address.length>=5){
+        console.log("Only 5  fields allowed.")
+        return 
+    }
+    if(index==undefined){
+        index=dataSet.address.length
+    }
+    if(index+1-dataSet.address.length>1 | index<0){
+        console.log("Index value not allowed.")
+        return 
+    }
+    dataSet.address.splice(index, 0, newAddress);
+    await userCollection.updateOne({name:obj},{address:dataSet.address})
+}
 
-// deleteManyFunction()
-async function deleteManyFunction(){
-    await userCollection.deleteMany({}).then(values=>console.log(values)).catch(err=>console.log(err))
-    await userVehicleCollection.deleteMany({}).then(values=>console.log(values)).catch(err=>console.log(err))
+removeAddress('Sandesh',0/*optional*/)
+async function removeAddress(obj,index){
+    let data=await userCollection.find({name:obj})
+    let [dataSet]=data
+    if(dataSet.address.length==0){
+        console.log("No data in address field.")
+        return 
+    }
+    if(index==undefined){
+        index=dataSet.address.length-1
+    }
+    if(index+1>dataSet.address.length | index<0){
+        console.log("Index value not allowed")
+        return 
+    }
+    dataSet.address.splice(index,1);
+    await userCollection.updateOne({name:obj},{address:dataSet.address})
 }
