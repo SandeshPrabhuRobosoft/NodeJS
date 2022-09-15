@@ -1,8 +1,8 @@
 const mongoose=require('mongoose')
 main().catch(err => console.log(err))
 async function main(){
-    // await mongoose.connect('mongodb://localhost:27017/test')
-
+    await mongoose.connect('mongodb://localhost:27017/test')
+    
     let kittenSchema=new mongoose.Schema({
         name:String
     });
@@ -13,15 +13,13 @@ async function main(){
     let Kitten=mongoose.model('Kitten',kittenSchema)
     
     let Vineeth=new Kitten({name:"Vineeth"})
-
+    // Vineeth.save()
     console.log(Vineeth.name)
     Vineeth.speak()
     
     let Fluffy=new Kitten({name:'Fluffy'})
+    // Fluffy.save()
     Fluffy.speak()
-
     let allKittens=await Kitten.find()
     console.log(allKittens)
 }
-//lean, odm, orm, indexing, data types, populate
-

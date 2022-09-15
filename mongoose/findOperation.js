@@ -35,10 +35,10 @@ function insertManyFunction(){
         address: 'Udupi, Udupi, Karnataka'
     }])
 }
-insertManyFunction()
+// insertManyFunction()
 
-// userCollection.find({}/*id*/, {__v:0}/*projection*/, {limit:/*option*/, function (err, documents)/*callback*/ {
-//     if (err) console.log(err);
-//     else console.log("Data : ", documents);
-// });
+userCollection.find({}/*id*/, {__v:0}/*projection*/, {limit:1}/*option*/, function (err, documents)/*callback*/ {
+    if (err) console.log(err);
+    else console.log("Data : ", documents);
+});
 

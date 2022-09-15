@@ -118,7 +118,7 @@ async function addAddress(obj,newAddress,index){
     await userCollection.updateOne({name:obj},{address:dataSet.address})
 }
 
-removeAddress('Sandesh',0/*optional*/)
+// removeAddress('Sandesh',0/*optional*/)
 async function removeAddress(obj,index){
     let data=await userCollection.find({name:obj})
     let [dataSet]=data

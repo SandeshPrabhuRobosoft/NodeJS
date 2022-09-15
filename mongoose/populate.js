@@ -99,8 +99,8 @@ SumukhVehicle.save(function (err) {
 });
 }
 
-// TeslaOwner()
-function TeslaOwner(){
+// TeslaOwnerPopulate()
+function TeslaOwnerPopulate(){
     userVehicleCollection.findOne({name:"Tesla"}).populate('Owner').exec(function (err, collection) {
         if (err) return handleError(err);
         console.log(`The Owner's mailID is ${collection.Owner.email}`);
@@ -113,11 +113,12 @@ async function deleteManyFunction(){
     await userVehicleCollection.deleteMany({}).then(values=>console.log(values)).catch(err=>console.log(err))
 }
 
-aggregateFunction()
+// aggregateFunction()
 async function aggregateFunction(){
     await userCollection.aggregate([{$unwind: {
         path: "$address"
-    }},{
+    }},
+    {
         $group: {_id:'$address','Total Entries':{$count:{}}}
     },
     {
@@ -125,4 +126,3 @@ async function aggregateFunction(){
     }
 ]).then(values=>console.log(values)).catch(err=>console.log(err))
 }
-// ,{$sort:{'$address':1}}

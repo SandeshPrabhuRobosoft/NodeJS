@@ -60,19 +60,13 @@ Sumukh.save(function (err) {
 })
 }
 
-// addAddress('Sandesh','secondAddress')
-// async function addAddress(obj,newAddress){
-//     let arr=await userCollection.findOne({name:obj},{address:1,_id:0})
-//     arr=arr["address"]
-//     console.log(arr)
-// }
-
-// addAddress()
-async function addAddress(){
-    await userCollection.findOneAndUpdate({name:"Sandesh"},{$push:{
+// addAddress("63217597c9053f741654260e")
+async function addAddress(userId){
+    await userCollection.findOneAndUpdate({_id:userId},
+    {$push:{
         address:{
             $each:[{
-            city:"UP",
+            city:"mysore",
             state:"Karnataka"
             }],
             $position:1
@@ -80,27 +74,35 @@ async function addAddress(){
     }})
 }
 
-// updateAddress("63217597c9053f7416542613","nommmmmmmm")
+// removeAddress("63217597c9053f741654260e")
+async function removeAddress(userId){
+    await userCollection.findOneAndUpdate({_id:userId},
+    {$pull:{
+        address:{
+            city:"UP",
+            state:"Karnataka"
+            },
+        }
+    })
+}
+
+// updateAddress("63217597c9053f7416542613","Mandya")
 async function updateAddress(id,newAdress){
-    await userCollection.updateOne({'address._id':id},{$set:{"address.$.city":newAdress}}, function (err, docs) {
+    await userCollection.findOneAndUpdate({'address._id':id},{$set:{"address.$.city":newAdress}},{new:true}, function (err, docs) {
         if (err) console.log(err)
         else console.log("Updated User : ", docs);
 }).clone()}
 
 
-// FindAddressbyId("63217597c9053f741654260f","Manipal")
-async function findAddressbyId(id){
-    await userCollection.findById({'address._id':id}, function (err, docs) {
+// findAddressUsingId("63217597c9053f7416542613")
+async function findAddressUsingId(id){
+    await userCollection.find({'address._id':id}, function (err, docs) {
         if (err) console.log(err)
         else console.log("User : ", docs);
 }).clone()}
-// userCollection.findById({'address._id':63217597c9053f741654260f})
+
 
 aggregateFunction()
 async function aggregateFunction(){
     await userCollection.aggregate([{$group:{_id:"$gender",'total':{$count:{}}}},{$sort:{_id:-1}}]).then(data=>console.log(data)).catch(err=>{console.log(err)})
-
 }
-
-
-// upsert

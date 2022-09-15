@@ -64,11 +64,24 @@ async function insertManyFunction(){
 // inOperator()
 // unsetOperation()
 // setOperation()
+// deleteOneFunction()
+// deleteManyFunction()
+// updateManyFunction()
 
-// async function aggregateToGroupByCity(){
-//     await userCollection
-// }
+async function updateManyFunction(){
+    await userCollection.updateMany({gender:"Male"},{phoneNo:100000000},function(err,documents){
+        if(err) console.log(err)
+        else console.log("Updated Documents:",documents)
+    }).clone()
+}
 
+async function deleteManyFunction(){
+    await userCollection.deleteMany({}).then(values=>console.log(values)).catch(err=>console.log(err))
+}
+
+async function deleteOneFunction(){
+    await userCollection.deleteOne({name:"Sumukh"}).then(values=>console.log(values)).catch(err=>console.log(err))
+}
 
 async function unsetOperation(){
     await userCollection.updateOne({name:"Sandesh"},{$unset:{age:''}})
@@ -131,4 +144,3 @@ async function updateOneFunction(){
         else console.log("Updated Documents:",documents)
     })
 }
-
