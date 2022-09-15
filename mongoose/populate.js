@@ -33,7 +33,7 @@ let Sandesh=new userCollection({
     dateOfBirth: new Date('2000-05-01'),
     email: "Sandesh@gmail.com",
     phoneNo: 1234567890,
-    address: ["Manipal, Karnataka"]
+    address: ["Manipal", "Karnataka"]
 })
 let VPN=new userCollection({
     name: "VPN",
@@ -43,7 +43,7 @@ let VPN=new userCollection({
     dateOfBirth: new Date('2001-02-28'),
     email: "VPN@gmail.com",
     phoneNo: 7894561230,
-    address: ["Udupi, Karnataka"]
+    address: ["Udupi", "Karnataka"]
 })
 let Sumukh=new userCollection({
     name: "Sumukh",
@@ -53,7 +53,7 @@ let Sumukh=new userCollection({
     dateOfBirth: new Date('2021-03-21'),
     email: "Sumukh@gmail.com",
     phoneNo: 7642135892,
-    address: ["Mysore, Karnataka"]
+    address: ["Mysore", "Karnataka"]
 })
 // saveUserFunction()
 function saveUserFunction(){
@@ -99,13 +99,30 @@ SumukhVehicle.save(function (err) {
 });
 }
 
-userVehicleCollection.findOne({name:"Tesla"}).populate('Owner').exec(function (err, collection) {
-    if (err) return handleError(err);
-    console.log(`The Owner's mailID is ${collection.Owner.email}`);
-})
+// TeslaOwner()
+function TeslaOwner(){
+    userVehicleCollection.findOne({name:"Tesla"}).populate('Owner').exec(function (err, collection) {
+        if (err) return handleError(err);
+        console.log(`The Owner's mailID is ${collection.Owner.email}`);
+    })
+}
 
 // deleteManyFunction()
 async function deleteManyFunction(){
     await userCollection.deleteMany({}).then(values=>console.log(values)).catch(err=>console.log(err))
     await userVehicleCollection.deleteMany({}).then(values=>console.log(values)).catch(err=>console.log(err))
 }
+
+aggregateFunction()
+async function aggregateFunction(){
+    await userCollection.aggregate([{$unwind: {
+        path: "$address"
+    }},{
+        $group: {_id:'$address','Total Entries':{$count:{}}}
+    },
+    {
+        $sort:{'Total Entries':1,_id:1}
+    }
+]).then(values=>console.log(values)).catch(err=>console.log(err))
+}
+// ,{$sort:{'$address':1}}

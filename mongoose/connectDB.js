@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     dateOfBirth:{type:Date},
     email: String,
     phoneNo: Number,
-    address: [{city:{type:String},state:{type:String}}],
+    address: [{city:{type:String},state:{type:String}}]
   });
 const userCollection= mongoose.model('userCollection', userSchema);
 
