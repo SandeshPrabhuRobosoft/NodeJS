@@ -4,7 +4,8 @@
   },
   "dependencies": {
     "assert": "^2.0.0",
-    "mongoose": "^6.5.4"
+    "mongoose": "^6.5.4",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "jest": "^29.0.1"
