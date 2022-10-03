@@ -25,19 +25,14 @@ app.get('/data/:month/:year',(req,res)=>{
 
 app.get('/users/:id',(req,res)=>{
     let userData=users.find(uid=>uid.id==req.params.id)
-    if(!userData) res.status(404).send("ID not found")
+    if(!userData) return res.status(404).send("ID not found")
     res.send(userData)
 })
 
 app.post('/users/post',(req,res)=>{
-    const schema=Joi.object({
-        name:Joi.string().min(3).required()
-    })
-    const result=schema.validate(req.body)
-    if(result.error){
-        res.status(400).send(result.error.details[0].message)
-        return
-    }
+    
+    const result=validateFunction(req.body)
+    if(result.error) return res.status(400).send(result.error.details[0].message)
     let UserData={
         id:users.length + 1,
         name:req.body.name
@@ -46,6 +41,33 @@ app.post('/users/post',(req,res)=>{
     res.send(users)
 })
 
+app.put('/users/put/:id',(req,res)=>{
+    let userData=users.find(data=>data.id==req.params.id)
+    if(!userData) return res.status(404).send("ID not found")
+
+    const result=validateFunction(req.body)
+    if(result.error) return res.status(400).send(result.error.details[0].message)
+
+    userData.name=req.body.name
+    res.send(users)
+})
+
+app.delete('/users/delete/:id',(req,res)=>{
+    let userData = users.find(item=>item.id==req.params.id)
+    if(!userData) return res.status(404).send("ID not found")
+
+    let index=users.indexOf(userData)
+    users.splice(index,1)
+
+    res.send(users)
+})
+
+function validateFunction(objName){
+    const schema=Joi.object({
+        name:Joi.string().min(3).required()
+    })
+    return schema.validate(objName)
+}
 
 const port = process.env.PORT || 3000;
 
